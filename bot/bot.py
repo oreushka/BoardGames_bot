@@ -2,6 +2,7 @@ from aiogram import Bot, types, Dispatcher, executor
 
 import config
 import logging
+import keyboard as kb
 
 #bot init
 bot = Bot(token=config.TOKEN)
@@ -12,11 +13,11 @@ logging.basicConfig(level=logging.INFO)
 
 @dp.message_handler(commands=['start'])                                         #hello
 async def process_start_command(message: types.Message):
-    await message.answer("Привет!\nНапиши мне что-нибудь!")
+    await message.reply("Привет! Выбирай, в какую игру сыграем сегодня", reply_markup=kb.markup4)
 
 @dp.message_handler(commands=['help'])                                          #help
 async def process_help_command(message: types.Message):
-    await message.answer("Напиши мне что-нибудь, и я отпрпавлю этот текст тебе в ответ!")
+    await message.answer("Просто нажми на кнопку с нужной тебе игрой!")
 
 @dp.message_handler()                                                           #send message
 async def echo_message(message: types.Message):
