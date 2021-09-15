@@ -64,7 +64,6 @@ async def echo_message(message: types.Message):
         else:
             await message.answer("Котик, я тебя не понимаю, у меня лапки. Тыкай только по менюшке, пожалуйста", reply_markup=kb.markup1)
 
-
-#run long-polling
+                                                                                                        #run long-polling
 if __name__ == '__main__':                                                                              #polling
     executor.start_polling(dp, skip_updates = True)
