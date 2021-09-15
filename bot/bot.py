@@ -4,42 +4,38 @@ import config
 import logging
 import keyboard as kb
 
-#bot init
-bot = Bot(token=config.TOKEN)
+bot = Bot(token=config.TOKEN)                                                                           # bot init
 dp = Dispatcher(bot)
 
-#log level
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)                                                                 # log level
 
 
-# Game
-class Game():
+class Game():                                                                                           # Game
     def get_game(self):
         return dict([("12+", 0), ("16+", 1), ("18+", 2), ("Прогерам!", 3)])
 
-# Правда или действие
-class TruthOrDare():
+class TruthOrDare():                                                                                    # Truth or Dare
     def get_game(self):
-        return dict([("12+", 10), ("16+", 11), ("18+", 12), ("Прогерам!", 13)])
+        return dict([("12+", ["Отожмись", "Прыгни", "Присядь"]), ("16+", ["", "", ""]), ("18+", ["", "", ""]), ("Прогерам!", ["", "", ""])])
 
-# Я никогда не
-class I_never():
+class I_never():                                                                                        # Never done
     def get_game(self):
-        return dict([("12+", 20), ("16+", 21), ("18+", 22), ("Прогерам!", 23)])
+        return dict([("12+", ["", "", ""]), ("16+", ["", "", ""]), ("18+", ["", "", ""]), ("Прогерам!", ["", "", ""])])
 
 game = Game()
 step = 0
 
+#def random(int max):
 
-@dp.message_handler(commands=['start'])                                         #hello
+@dp.message_handler(commands=['start'])                                                                 # Hello
 async def process_start_command(message: types.Message):
     await message.reply("Привет! Выбирай, в какую игру сыграем сегодня", reply_markup=kb.markup0)
 
-@dp.message_handler(commands=['help'])                                          #help
+@dp.message_handler(commands=['help'])                                                                  # Help
 async def process_help_command(message: types.Message):
     await message.answer("Просто нажми на кнопку с нужной тебе игрой!", reply_markup=kb.markup0)
 
-@dp.message_handler()                                                           #send message
+@dp.message_handler()                                                                                   # Send message
 async def echo_message(message: types.Message):
     global game
     global step
@@ -59,7 +55,9 @@ async def echo_message(message: types.Message):
 
     if step == 1:
         if message.text in ["12+", "16+", "18+", "Прогерам!"]:
-            await message.answer(game.get_game()[message.text])
+            arr = game.get_game()[message.text]
+            #await message.answer(arr[random()])
+            await message.answer(arr[0])
         elif message.text == "Назад":
             await message.answer("Окееей, давай снова выбирать игру", reply_markup=kb.markup0)
             step = 0
@@ -68,5 +66,5 @@ async def echo_message(message: types.Message):
 
 
 #run long-polling
-if __name__ == '__main__':                                                      #polling
+if __name__ == '__main__':                                                                              #polling
     executor.start_polling(dp, skip_updates = True)
