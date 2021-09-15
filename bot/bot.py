@@ -3,33 +3,21 @@ from aiogram import Bot, types, Dispatcher, executor
 import config
 import logging
 import keyboard as kb
+import Game
 
 bot = Bot(token=config.TOKEN)                                                                           # bot init
 dp = Dispatcher(bot)
 
 logging.basicConfig(level=logging.INFO)                                                                 # log level
 
-
-class Game():                                                                                           # Game
-    def get_game(self):
-        return dict([("12+", 0), ("16+", 1), ("18+", 2), ("Прогерам!", 3)])
-
-class TruthOrDare():                                                                                    # Truth or Dare
-    def get_game(self):
-        return dict([("12+", ["Отожмись", "Прыгни", "Присядь"]), ("16+", ["", "", ""]), ("18+", ["", "", ""]), ("Прогерам!", ["", "", ""])])
-
-class I_never():                                                                                        # Never done
-    def get_game(self):
-        return dict([("12+", ["", "", ""]), ("16+", ["", "", ""]), ("18+", ["", "", ""]), ("Прогерам!", ["", "", ""])])
-
-game = Game()
+game = Game.Game
 step = 0
 
 #def random(int max):
 
 @dp.message_handler(commands=['start'])                                                                 # Hello
 async def process_start_command(message: types.Message):
-    await message.reply("Привет! Выбирай, в какую игру сыграем сегодня", reply_markup=kb.markup0)
+    await message.answer("Привет! Выбирай, в какую игру сыграем сегодня", reply_markup=kb.markup0)
 
 @dp.message_handler(commands=['help'])                                                                  # Help
 async def process_help_command(message: types.Message):
@@ -43,12 +31,12 @@ async def echo_message(message: types.Message):
     if step == 0:
         if message.text == "Правда или действие":
             await message.answer("Я выбираю правду", reply_markup=kb.markup1)
-            game = TruthOrDare()
+            game = Game.TruthOrDare()
             step = 1
         elif message.text == "Я никогда не...":
             await message.answer("Я выбираю стыд!!!", reply_markup=kb.markup1)
             step = 1
-            game = I_never()
+            game = Game.I_never()
         else:
             await message.answer("Котик, ну выбери игру из менюшки. Ну пожаааалуйста", reply_markup=kb.markup0)
         return
