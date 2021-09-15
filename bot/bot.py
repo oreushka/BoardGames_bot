@@ -2,6 +2,7 @@ from aiogram import Bot, types, Dispatcher, executor
 
 import config
 import logging
+import random
 import keyboard as kb
 import Game
 
@@ -12,8 +13,6 @@ logging.basicConfig(level=logging.INFO)                                         
 
 game = Game.Game
 step = 0
-
-#def random(int max):
 
 @dp.message_handler(commands=['start'])                                                                 # Hello
 async def process_start_command(message: types.Message):
@@ -43,9 +42,7 @@ async def echo_message(message: types.Message):
 
     if step == 1:
         if message.text in ["12+", "16+", "18+", "Прогерам!"]:
-            arr = game.get_game()[message.text]
-            #await message.answer(arr[random()])
-            await message.answer(arr[0])
+            await message.answer(random.choice(game.get_game()[message.text]))
         elif message.text == "Назад":
             await message.answer("Окееей, давай снова выбирать игру", reply_markup=kb.markup0)
             step = 0
