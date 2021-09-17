@@ -71,9 +71,9 @@ async def echo_message(message: types.Message):
                                  reply_markup=kb.markup1)
 
     if step == 2:
-
         if len(duble) == 0:
             await message.answer("Игра закончена", reply_markup=kb.markup0)
+            await message.answer("Команда 1: " + str(counter1) + "\nКоманда 2: " + str(counter2))
             step = 0
         elif message.text == "Команда 1":
             counter1 += 1
@@ -91,8 +91,8 @@ async def echo_message(message: types.Message):
             await message.answer(word)
         elif message.text == "Закончить игру":
             await message.answer("Как жаль, что вы наигрались. Надеюсь, вы весело порезвились", reply_markup=kb.markup0)
+            await message.answer("Команда 1: " + str(counter1) + "\nКоманда 2: " + str(counter2))
             step = 0
-        await message.answer("Команда 1: " + str(counter1) + "\nКоманда 2: " + str(counter2))
 
                                                                                                         #run long-polling
 if __name__ == '__main__':                                                                              #polling
