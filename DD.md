@@ -19,8 +19,8 @@
 * Telegram Bot API
 
 ### Интерфейс взаимодействия
-[<img src="C:\Users\днс\github\deadlines_bot\interface0.jpg" width="200"/>]()
-[<img src="C:\Users\днс\github\deadlines_bot\interface1.jpg" width="200"/>]()
+[<img src="interface0.jpg" width="300"/>]()
+[<img src="interface1.jpg" width="300"/>]()
 
 ### План выполнения
 * Запустить бота-попугая, проверить работоспособность кода и токена
